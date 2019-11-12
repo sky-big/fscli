@@ -1,1 +1,1 @@
-# Jd Cloud Serverless Faas Local Command Tool
+# FS CLI
