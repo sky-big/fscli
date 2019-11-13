@@ -1,0 +1,24 @@
+ROSTemplateFormatVersion: '2015-09-01'
+Transform: 'Aliyun::Serverless-2018-04-03'
+Resources:
+  cdn-test-service:
+    Type: 'Aliyun::Serverless::Service'
+    Properties:
+      Description: 'cdn trigger test'
+
+    cdn-test-function:
+      Type: 'Aliyun::Serverless::Function'
+      Properties:
+        Handler: index.handler
+        Runtime: nodejs8
+        CodeUri: './'
+      Events:
+        cdn-trigger-name: # trigger name
+          Type: CDN # trigger type
+          Properties:
+            Qualifier: '1'
+            EventName: CachedObjectsRefreshed
+            EventVersion: '1.0.0'
+            Notes: cdn events trigger test
+            Filter:
+              Domain: ['cdn-trigger.sunfeiyu.top']

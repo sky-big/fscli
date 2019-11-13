@@ -1,0 +1,12 @@
+ROSTemplateFormatVersion: '2015-09-01'
+Transform: 'Aliyun::Serverless-2018-04-03'
+Resources:
+  MyService:
+    Type: 'Aliyun::Serverless::Service'
+    MyFunction:
+      Type: 'Aliyun::Serverless::Function'
+      Properties:
+        Handler: datahub.index
+        Runtime: nodejs6
+        CodeUri: 'datahub.js'
+

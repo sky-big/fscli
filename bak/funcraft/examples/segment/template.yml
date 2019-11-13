@@ -1,0 +1,30 @@
+ROSTemplateFormatVersion: '2015-09-01'
+Transform: 'Aliyun::Serverless-2018-04-03'
+Resources:
+  maas:
+    Type: 'Aliyun::Serverless::Service'
+    Properties:
+      Description: 'Module as a service'
+    doSegment:
+      Type: 'Aliyun::Serverless::Function'
+      Properties:
+        Handler: index.doSegment
+        CodeUri: './'
+        Description: 'do segment'
+        Runtime: nodejs8
+
+  maasapi:
+    Type: 'Aliyun::Serverless::Api'
+    Properties:
+      StageName: RELEASE
+      DefinitionBody:
+        '/do_segment':
+          post:
+            x-aliyun-apigateway-api-name: segment_post
+            x-aliyun-apigateway-request-config:
+              requestMode: "PASSTHROUGH"
+              requestProtocol: "http"
+            x-aliyun-apigateway-fc:
+              arn: acs:fc:::services/${maas.Arn}/functions/${doSegment.Arn}/
+
+            

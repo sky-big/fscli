@@ -1,0 +1,24 @@
+{
+  "name": "wechat",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Wechat demo for API Gateway & Function Compute",
+  "main": "wechat.js",
+  "scripts": {
+    "test": "mocha test/*.test.js",
+    "test-cov": "nyc --reporter=html --reporter=text mocha test/*.test.js"
+  },
+  "author": "Jackson Tian",
+  "license": "MIT",
+  "devDependencies": {
+    "expect.js": "^0.3.1",
+    "mocha": "^3.5.0",
+    "nyc": "^11.1.0"
+  },
+  "dependencies": {
+    "ejs": "^2.5.7",
+    "fc-helper": "^2.1.0",
+    "wechat-crypto": "^0.0.2",
+    "xml2js": "^0.4.17"
+  }
+}
