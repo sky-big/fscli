@@ -218,11 +218,17 @@ Properties | * | **必填。** 描述此事件映射属性的对象。必须符�
 ##### 示例：事件源对象
 
 ```yaml
-Type: Timer
+
+Type: OSS # trigger type
 Properties:
-    CronExpression: '0 0 8 * * *'
-    Enable: true
-    Payload: 'awesome-fc
+  BucketName: ossBucketName # oss bucket name
+  Events:
+    - oss:ObjectCreated:*
+    - oss:ObjectRemoved:DeleteObject
+  Filter: 
+    Key:
+      Prefix: src/
+      Suffix: .jpg
 ```
 
 #### Vpc 配置对象
