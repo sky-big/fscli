@@ -1,0 +1,48 @@
+ROSTemplateFormatVersion: '2015-09-01'
+Transform: 'JDCloud::Serverless-2019-11-10'
+Resources:
+  function-test:
+    Type: Function
+    Properties:
+      Handler: index.handler
+      Timeout: 10
+      MemorySize: 128
+      Runtime: python2.7
+      Description: test
+      CodeUri: './'
+      Env:
+        'key': 'value'
+      Role: role-test
+      Policies: policy-test
+      VPCConfig:
+        Vpc: vpc-name
+        Subnet: subnet-name
+      LogConfig:
+        LogSet: log-set-name
+        LogTopic: log-topic-name
+      Events:
+        oss-trigger-test:
+          Type: OSS
+          Properties:
+            BucketName: test-bucket
+            Events:
+              - oss:ObjectCreated:*
+              - oss:ObjectRemoved:DeleteObject
+            Filter:
+              Key:
+                Prefix: src/
+                Suffix: .jpg
+        api-group-test:
+          Type: ApiGroup
+          Properties:
+            Stage: Online
+            Version: 0.0.1  #Api版本
+          api-test:
+            Type: Api
+            Properties:
+              Path: /test
+              Method: post
+        jqs-test:
+          Type: JQS
+          Properties:
+            BatchSize: 10
