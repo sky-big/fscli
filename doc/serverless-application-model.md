@@ -163,7 +163,7 @@ oss-trigger-test:                           # oss 触发器名称
 ---|:---:|---
 Stage| `string` | **必填。** 发布阶段的名称，API 网关用作调用统一资源标识符（URI）中的第一个路径段。可选值为：test、preview、online。默认如果为新 API 服务时为 release，已有 API 服务时为test。
 Version| `stirng` | **必填。** Api分组版本号。默认为0.0.1。
-Api   | [Api 对象](#Api对象) | **必填。** ApiGroup下的Api。 
+Api   | [Api 对象](#Api-对象) | **必填。** ApiGroup下的Api。 
 
 
 ##### 示例：APIGATEWAY 事件源对象
