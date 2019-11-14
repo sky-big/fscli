@@ -1,8 +1,8 @@
 ROSTemplateFormatVersion: '2015-09-01'
 Transform: 'JDCloud::Serverless-2019-11-10'
 Resources:
-  function-test:
-    Type: Function
+  function-test:                                  # 待创建函数名称
+    Type: 'JDCloud::Serverless::Function'
     Properties:
       Handler: index.handler
       Timeout: 10
@@ -12,17 +12,17 @@ Resources:
       CodeUri: './'
       Env:
         'key': 'value'
-      Role: role-test
-      Policies: policy-test
+      Role: role-test                             # 角色名称
+      Policies: policy-test                       # 权限策略
       VPCConfig:
-        Vpc: vpc-name
-        Subnet: subnet-name
+        Vpc: vpc-name                             # vpc 名称
+        Subnet: subnet-name                       # subnet 名称
       LogConfig:
-        LogSet: log-set-name
-        LogTopic: log-topic-name
+        LogSet: log-set-name                      # 日志集名称
+        LogTopic: log-topic-name                  # 日志主题名称
       Events:
-        oss-trigger-test:
-          Type: OSS
+        oss-trigger-test:                         # oss 触发器名称
+          Type: 'JDCloud::Serverless::OSS'
           Properties:
             BucketName: test-bucket
             Events:
@@ -32,17 +32,17 @@ Resources:
               Key:
                 Prefix: src/
                 Suffix: .jpg
-        api-group-test:
-          Type: ApiGroup
+        api-group-test:                           # api group 名称
+          Type: 'JDCloud::Serverless::ApiGroup'
           Properties:
             Stage: Online
             Version: 0.0.1  #Api版本
-          api-test:
-            Type: Api
+          api-test:                               # api 名称
+            Type: 'JDCloud::Serverless::Api'
             Properties:
               Path: /test
               Method: post
-        jqs-test:
-          Type: JQS
+        jqs-test:                                 # jqs 队列名称
+          Type: 'JDCloud::Serverless::JQS'
           Properties:
             BatchSize: 10

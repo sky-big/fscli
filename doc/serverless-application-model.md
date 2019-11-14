@@ -28,10 +28,10 @@ Serverless 应用是由事件触发功能组成的应用。一个典型的 serve
 ROSTemplateFormatVersion: '2015-09-01'
 Transform: 'JDCloud::Serverless-2019-11-10'
 Resources:
-  function-test:
-    Type: Function
-    Properties:
-      Handler: index.handler
+  function-test:                                  # 待创建函数名称
+    Type: 'JDCloud::Serverless::Function'   
+    Properties:                             
+      Handler: index.handler                
       Timeout: 10
       MemorySize: 128
       Runtime: python2.7
@@ -39,17 +39,17 @@ Resources:
       CodeUri: './'
       Env:
         'key': 'value'
-      Role: role-test
-      Policies: policy-test
+      Role: role-test                             # 角色名称
+      Policies: policy-test                       # 权限策略
       VPCConfig:
-        Vpc: vpc-name
-        Subnet: subnet-name
+        Vpc: vpc-name                             # vpc 名称
+        Subnet: subnet-name                       # subnet 名称
       LogConfig:
-        LogSet: log-set-name
-        LogTopic: log-topic-name
+        LogSet: log-set-name                      # 日志集名称
+        LogTopic: log-topic-name                  # 日志主题名称
       Events:
-        oss-trigger-test:
-          Type: OSS
+        oss-trigger-test:                         # oss 触发器名称
+          Type: 'JDCloud::Serverless::OSS'
           Properties:
             BucketName: test-bucket
             Events:
@@ -59,18 +59,18 @@ Resources:
               Key:
                 Prefix: src/
                 Suffix: .jpg
-        api-group-test:
-          Type: ApiGroup
+        api-group-test:                           # api group 名称
+          Type: 'JDCloud::Serverless::ApiGroup'
           Properties:
             Stage: Online
             Version: 0.0.1  #Api版本
-          api-test:
-            Type: Api
+          api-test:                               # api 名称
+            Type: 'JDCloud::Serverless::Api'
             Properties:
               Path: /test
               Method: post
-        jqs-test:
-          Type: JQS
+        jqs-test:                                 # jqs 队列名称
+          Type: 'JDCloud::Serverless::JQS'
           Properties:
             BatchSize: 10
 ```
@@ -95,7 +95,7 @@ CodeUri | `string` | **必填。** 代码位置。支持 file、dir、zip等形�
 Description | `string` | 函数的描述。
 MemorySize | `integer` | 每次函数执行分配的内存大小，单位是 MB，默认为 128（MB）。
 Timeout | `integer` | 处理函数在被终止之前可以运行的最长时间，单位是秒，默认为 3 秒。
-EnvironmentVariables | [环境变量对象](#环境变量对象) | 为函数配置[环境变量](https://docs.jdcloud.com/cn/function-service/env-variable)。
+Env | [环境变量对象](#环境变量对象) | 为函数配置[环境变量](https://docs.jdcloud.com/cn/function-service/env-variable)。
 Events | [事件源对象](#事件源对象) | 用于定义触发此函数的事件。
 Role | `string` | 使用一个 RAM 角色的 Name 为函数指定执行角色。 如果忽略，将为函数创建一个[默认的角色](#默认-Role)。
 Policies | `string` <span>&#124;</span> `string` 列表  | 函数需要的京东云管理的 RAM policies 或 RAM policy 文档的名称，将会被附加到该函数的默认角色上。如果设置了 Role 属性，则该属性会被忽略。
@@ -107,7 +107,7 @@ Description | `string` | 函数的描述。
 
 ```yaml
 
-  MyFunction: # function name
+  MyFunction:                               # function 名称
     Type: 'JDCloud::Serverless::Function'
     Properties:
       Handler: index.handler
@@ -140,10 +140,10 @@ Key | [OSS Key 对象](#OSS-Key-配置对象) | **必填。** 过滤器支持过
 ##### 示例：OSS 事件源对象
 
 ```yaml
-oss-trigger-test: # trigger name
-    Type: OSS # trigger type
+oss-trigger-test:                           # oss 触发器名称
+    Type: 'JDCloud::Serverless::OSS'        
      Properties:
-      BucketName: ossBucketName # oss bucket name
+      BucketName: ossBucketName             # oss bucket 名称
       Events:
         - oss:ObjectCreated:*
         - oss:ObjectRemoved:DeleteObject
@@ -163,22 +163,22 @@ oss-trigger-test: # trigger name
 ---|:---:|---
 Stage| `string` | **必填。** 发布阶段的名称，API 网关用作调用统一资源标识符（URI）中的第一个路径段。可选值为：test、preview、online。默认如果为新 API 服务时为 release，已有 API 服务时为test。
 Version| `stirng` | **必填。** Api分组版本号。默认为0.0.1。
-Path   | `object` | **必填。** Api子路径。 
-Method | `string` | **必填。** HTTP 请求方法，可选值为：ANY、GET、POST、PUT、DELETE、HEAD，默认值为ANY。
+Api   | [Api 对象](#Api对象) | **必填。** ApiGroup下的Api。 
+
 
 ##### 示例：APIGATEWAY 事件源对象
 
 ```yaml
-api-group-test:  #ApiGroup名称
-  Type: ApiGroup
+api-group-test:                           # ApiGroup 名称
+  Type: 'JDCloud::Serverless::ApiGroup'
   Properties:
-    Stage: Online   #Api待发布环境
-    Version: 0.0.1  #Api版本
-    api-test:   #Api名称
-      Type: Api
+    Stage: Online                         # ApiGroup 待发布环境
+    Version: 0.0.1                        # ApiGroup 版本
+    api-test:                             # Api 名称
+      Type: 'JDCloud::Serverless::Api'
       Properties:
-        Path: /test   #Api子路径
-        Method: post    #Api方法
+        Path: /test                       #Api 子路径
+        Method: post                      #Api 方法
 ```
 
 #### JQS
@@ -194,8 +194,8 @@ BatchSize| `integer` | **必填。** 为jqs触发器一次性从消息队列中�
 ##### 示例：JQS 事件源对象
 
 ```yaml
-jqs-test:
-  Type: JQS
+jqs-test:                             # jqs 队列名称
+  Type: 'JDCloud::Serverless::JQS'
   Properties:
     BatchSize: 10
 ```
@@ -219,9 +219,9 @@ Properties | * | **必填。** 描述此事件映射属性的对象。必须符�
 
 ```yaml
 
-Type: OSS # trigger type
+Type: 'JDCloud::Serverless::OSS'        
 Properties:
-  BucketName: ossBucketName # oss bucket name
+  BucketName: ossBucketName             
   Events:
     - oss:ObjectCreated:*
     - oss:ObjectRemoved:DeleteObject
@@ -287,6 +287,27 @@ Key 配置对象的属性包括： `Prefix` 和 `Suffix` 属性。它们所代�
 Key:
   Prefix: src/
   Suffix: .jpg
+```
+
+#### Api 对象
+
+Api 对象的属性包括： `Method` 和 `Path` 属性。触发Function的Api网关的HTTP Method和子路径。
+
+##### 属性
+
+属性名称 | 类型 | 描述
+---|:---:|---
+Mehod | `string` | **必填。** HTTP 请求子路径。
+Path | `string` | **必填。** HTTP 请求方法，可选值为：ANY、GET、POST、PUT、DELETE、HEAD，默认值为ANY。
+
+示例：
+
+```
+api-test:
+  Type: 'JDCloud::Serverless::Api'
+  Properties: 
+    Method: GET
+    Path: /test
 
 ```
 
