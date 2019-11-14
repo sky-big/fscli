@@ -177,8 +177,8 @@ api-group-test:                           # ApiGroup 名称
     api-test:                             # Api 名称
       Type: 'JDCloud::Serverless::Api'
       Properties:
-        Path: /test                       #Api 子路径
-        Method: post                      #Api 方法
+        Path: /test                       # Api 子路径
+        Method: post                      # Api 方法
 ```
 
 #### JQS
@@ -212,7 +212,7 @@ jqs-test:                             # jqs 队列名称
 
 属性名称 | 类型 | 描述
 ---|:---:|---
-Type | `string` | **必填。** 事件类型。 事件源类型包括 [Api](#api)、[JQS](#jqs) 等。有关所有类型的更多信息， 请参阅 [事件源类型](#事件源类型)。
+Type | `string` | **必填。** 事件类型。 事件源类型包括 [Api](#APIG)、[JQS](#jqs) 等。有关所有类型的更多信息， 请参阅 [事件源类型](#事件源类型)。
 Properties | * | **必填。** 描述此事件映射属性的对象。必须符合定义的 `类型` 。有关所有类型的更多信息，请参阅 [事件源类型](#事件源类型)。
 
 ##### 示例：事件源对象
