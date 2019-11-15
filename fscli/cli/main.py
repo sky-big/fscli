@@ -2,5 +2,5 @@
 JD Cloud FS CLI
 """
 
-def cli(ctx):
-    return
+def cli():
+    print("Hello, JDCloud FSCli")
