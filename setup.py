@@ -38,7 +38,7 @@ setup(
     long_description=io.open('README.md', encoding='utf-8').read(),
     author='JD Cloud',
     url='https://github.com/sky-big/fscli.git',
-    maintainer_email="sky_big@yeah.net",
+    maintainer_email="xuxingwen@jd.com",
     license="Apache License 2.0",
     python_requires='>=2.7, <=4.0, !=4.0',
     entry_points={
