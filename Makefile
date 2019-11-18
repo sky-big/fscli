@@ -32,3 +32,4 @@ dep:
 #   make clean
 clean:
 	find . -name "*.pyc" | xargs rm -rf
+	rm -rf ./jdcloud_fs_cli.egg-info
