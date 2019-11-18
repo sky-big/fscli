@@ -25,3 +25,10 @@ test:
 #   make dep
 dep:
 	pipenv run pip install -r requirements/base.txt
+
+#  Clean Project.
+#
+# Example:
+#   make clean
+clean:
+	find . -name "*.pyc" | xargs rm -rf
