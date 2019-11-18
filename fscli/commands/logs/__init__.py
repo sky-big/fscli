@@ -3,9 +3,12 @@
 """
 Logs command
 """
+import logging
 import click
 
 from fscli.cli.main import pass_context, common_options
+
+LOG = logging.getLogger(__name__)
 
 @click.command(
     "logs",
@@ -16,5 +19,5 @@ from fscli.cli.main import pass_context, common_options
 @common_options
 @pass_context
 def cli(ctx):
-    print("JD Cloud Serverless Logs Command")
+    LOG.debug("JD Cloud Serverless Logs Command")
     pass

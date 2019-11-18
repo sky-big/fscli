@@ -19,5 +19,5 @@ LOG = logging.getLogger(__name__)
 @common_options
 @pass_context
 def cli(ctx):
-    print("JD Cloud Serverless Build Command")
+    LOG.debug("JD Cloud Serverless Build Command")
     pass

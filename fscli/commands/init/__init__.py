@@ -3,9 +3,12 @@
 """
 Init command to scaffold a project app from a template
 """
+import logging
 import click
 
 from fscli.cli.main import pass_context, common_options
+
+LOG = logging.getLogger(__name__)
 
 @click.command(
     "init",
@@ -16,5 +19,5 @@ from fscli.cli.main import pass_context, common_options
 @common_options
 @pass_context
 def cli(ctx):
-    print("JD Cloud Serverless Init Command")
+    LOG.debug("JD Cloud Serverless Init Command")
     pass
