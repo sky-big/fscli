@@ -31,21 +31,17 @@ def read_version():
 cmd_name = "fs"
 
 setup(
-    name='jdcloud-fs-cli',
+    name="jdcloud-fs-cli",
     version=read_version(),
     packages=find_packages(),
-    description='This is a local tools for JDCloud Function Service.',
+    description="This is a local tools for JDCloud Function Service.",
     long_description=io.open('README.md', encoding='utf-8').read(),
-    author='JD Cloud',
-    url='https://github.com/sky-big/fscli.git',
+    author="JD Cloud",
+    url="https://github.com/sky-big/fscli.git",
     maintainer_email="xuxingwen@jd.com",
     license="Apache License 2.0",
-    python_requires='>=2.7, <=4.0, !=4.0',
-    entry_points={
-        'console_scripts': [
-            '{}=fscli.cli.main:cli'.format(cmd_name)
-        ]
-    },
-    install_requires=read_requirements('base.txt'),
+    python_requires=">=2.7, <=4.0, !=4.0",
+    entry_points={"console_scripts": ["{}=fscli.cli.main:cli".format(cmd_name)]},
+    install_requires=read_requirements("base.txt"),
     include_package_data=True,
 )

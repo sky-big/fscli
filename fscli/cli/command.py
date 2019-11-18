@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
 Base classes that implement the CLI framework
 """
@@ -14,6 +16,12 @@ logger = logging.getLogger(__name__)
 
 _SAM_CLI_COMMAND_PACKAGES = [
     "fscli.commands.init",
+    "fscli.commands.validate",
+    "fscli.commands.build",
+    "fscli.commands.local",
+    "fscli.commands.logs",
+    "fscli.commands.package",
+    "fscli.commands.deploy",
 ]
 
 

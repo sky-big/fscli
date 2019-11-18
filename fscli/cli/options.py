@@ -1,6 +1,7 @@
+# -*- coding: utf-8 -*-
+
 """
-This file contains common CLI options common to all commands. As we add more commands, this will
-become a repository of options that other commands could use when needed.
+JD Cloud FS CLI
 """
 
 import click

@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
 
 """
-Init command to scaffold a project app from a template
+Package command
 """
 import click
 
 from fscli.cli.main import pass_context
 
 @click.command(
-    "init",
-    short_help="Init an JD Cloud Serverless application.",
+    "package",
+    short_help="Package an JD Cloud Serverless application.",
     context_settings=dict(help_option_names=["-h", "--help"]),
 )
 
 @pass_context
 def cli(ctx):
-    print("JD Cloud Serverless Init Command")
+    print("JD Cloud Serverless Package Command")
     pass
