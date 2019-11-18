@@ -8,7 +8,7 @@ import click
 
 from fscli import __version__
 from fscli.lib.log.fs_logging import FSCliLogger
-from .options import debug_option, region_option, profile_option
+from .options import debug_option
 from .context import Context
 from .command import BaseCommand
 

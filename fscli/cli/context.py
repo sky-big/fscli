@@ -4,11 +4,7 @@ Context information passed to each CLI command
 
 import uuid
 import logging
-import boto3
-import botocore
 import click
-
-from samcli.commands.exceptions import CredentialsError
 
 
 class Context:
@@ -48,7 +44,7 @@ class Context:
 
         if self._debug:
             # Turn on debug logging
-            logging.getLogger("samcli").setLevel(logging.DEBUG)
+            logging.getLogger("fscli").setLevel(logging.DEBUG)
             logging.getLogger("aws_lambda_builders").setLevel(logging.DEBUG)
 
     @property
@@ -86,7 +82,7 @@ class Context:
     @property
     def command_path(self):
         """
-        Returns the full path of the command as invoked ex: "sam local generate-event s3 put". Wrapper to
+        Returns the full path of the command as invoked ex: "fs local generate-event s3 put". Wrapper to
         https://click.palletsprojects.com/en/7.x/api/#click.Context.command_path
 
         Returns
@@ -119,7 +115,7 @@ class Context:
                 assert ctx == this_context
          Returns
         -------
-        samcli.cli.context.Context
+        fscli.cli.context.Context
             Instance of this object, if we are running in a Click command. None otherwise.
         """
 
@@ -135,14 +131,3 @@ class Context:
             return click_core_ctx.find_object(Context) or click_core_ctx.ensure_object(Context)
 
         return None
-
-    def _refresh_session(self):
-        """
-        Update boto3's default session by creating a new session based on values set in the context. Some properties of
-        the Boto3's session object are read-only. Therefore when Click parses new AWS session related properties (like
-        region & profile), it will call this method to create a new session with latest values for these properties.
-        """
-        try:
-            boto3.setup_default_session(region_name=self._aws_region, profile_name=self._aws_profile)
-        except botocore.exceptions.ProfileNotFound as ex:
-            raise CredentialsError(str(ex))

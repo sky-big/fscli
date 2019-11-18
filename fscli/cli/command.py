@@ -13,14 +13,7 @@ logger = logging.getLogger(__name__)
 # Commands that are bundled with the CLI by default in app life-cycle order.
 
 _SAM_CLI_COMMAND_PACKAGES = [
-    "samcli.commands.init",
-    "samcli.commands.validate.validate",
-    "samcli.commands.build",
-    "samcli.commands.local.local",
-    "samcli.commands.package",
-    "samcli.commands.deploy",
-    "samcli.commands.logs",
-    "samcli.commands.publish",
+    "fscli.commands.init",
 ]
 
 
