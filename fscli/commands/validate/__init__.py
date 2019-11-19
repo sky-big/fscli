@@ -3,12 +3,11 @@
 """
 Validate command
 """
-import logging
+from fscli.lib.log.log import LOG
 import click
 
 from fscli.cli.main import pass_context, common_options
 
-LOG = logging.getLogger(__name__)
 
 @click.command(
     "validate",

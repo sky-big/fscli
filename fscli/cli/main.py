@@ -4,19 +4,14 @@
 JD Cloud FS CLI
 """
 
-import logging
 import json
 import click
 
 from fscli import __version__
-from fscli.lib.log.fs_logging import FSCliLogger
+from fscli.lib.log.log import LOG
 from .options import debug_option
 from .context import Context
 from .command import BaseCommand
-
-# log
-LOG = logging.getLogger(__name__)
-logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s", datefmt="%Y-%m-%d %H:%M:%S")
 
 # context
 pass_context = click.make_pass_decorator(Context)
@@ -47,7 +42,4 @@ def print_info(ctx, param, value):
 @click.option("--info", is_flag=True, is_eager=True, callback=print_info, expose_value=False)
 @pass_context
 def cli(ctx):
-    fs_cli_logger = logging.getLogger("fscli")
-    fs_cli_formatter = logging.Formatter("%(message)s")
-
-    FSCliLogger.configure_logger(fs_cli_logger, fs_cli_formatter, logging.INFO)
+    LOG.debug("JD Cloud FS CLI Started")

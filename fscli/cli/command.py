@@ -4,17 +4,14 @@
 Base classes that implement the CLI framework
 """
 
-import logging
 import importlib
 from collections import OrderedDict
-
 import click
-
-logger = logging.getLogger(__name__)
+from fscli.lib.log.log import LOG
 
 # Commands that are bundled with the CLI by default in app life-cycle order.
 
-_SAM_CLI_COMMAND_PACKAGES = [
+_FS_CLI_COMMAND_PACKAGES = [
     "fscli.commands.init",
     "fscli.commands.validate",
     "fscli.commands.build",
@@ -57,7 +54,7 @@ class BaseCommand(click.MultiCommand):
         super(BaseCommand, self).__init__(*args, **kwargs)
 
         if not cmd_packages:
-            cmd_packages = _SAM_CLI_COMMAND_PACKAGES
+            cmd_packages = _FS_CLI_COMMAND_PACKAGES
 
         self._commands = {}
         self._commands = BaseCommand._set_commands(cmd_packages)
@@ -98,7 +95,7 @@ class BaseCommand(click.MultiCommand):
         :return: Click object representing the command
         """
         if cmd_name not in self._commands:
-            logger.error("Command %s not available", cmd_name)
+            LOG.error("Command %s not available", cmd_name)
             return None
 
         pkg_name = self._commands[cmd_name]
@@ -106,11 +103,11 @@ class BaseCommand(click.MultiCommand):
         try:
             mod = importlib.import_module(pkg_name)
         except ImportError:
-            logger.exception("Command '%s' is not configured correctly. Unable to import '%s'", cmd_name, pkg_name)
+            LOG.exception("Command '%s' is not configured correctly. Unable to import '%s'", cmd_name, pkg_name)
             return None
 
         if not hasattr(mod, "cli"):
-            logger.error("Command %s is not configured correctly. It must expose an function called 'cli'", cmd_name)
+            LOG.error("Command %s is not configured correctly. It must expose an function called 'cli'", cmd_name)
             return None
 
         return mod.cli

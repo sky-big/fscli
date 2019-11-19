@@ -3,22 +3,21 @@
 """
 Init command to scaffold a project app from a template
 """
-import logging
+from fscli.lib.log.log import LOG
 import click
 
 from fscli.cli.main import pass_context, common_options
 from fscli.lib.globals.runtimes import *
 
-LOG = logging.getLogger(__name__)
-
 RUNTIMES_TEMPLATES = {
-    RUNTIME_PYTHON27: "",
-    RUNTIME_PYTHON36: "",
-    RUNTIME_PYTHON37: "",
-    RUNTIME_PHP7: "",
-    RUNTIME_NODEJS6: "",
-    RUNTIME_NODEJS8: "",
+    RUNTIME_PYTHON27: "fs-demo-python",
+    RUNTIME_PYTHON36: "fs-demo-python",
+    RUNTIME_PYTHON37: "fs-demo-python",
+    RUNTIME_PHP7: "fs-demo-php",
+    RUNTIME_NODEJS6: "fs-demo-nodejs6",
+    RUNTIME_NODEJS8: "fs-demo-nodejs8",
 }
+
 
 @click.command(
     "init",

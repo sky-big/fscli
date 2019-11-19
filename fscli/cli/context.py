@@ -6,6 +6,7 @@ Context information passed to each CLI command
 
 import uuid
 import logging
+from fscli.lib.log.log import LOG
 import click
 
 
@@ -33,8 +34,11 @@ class Context:
 
         if self._debug:
             # Turn on debug logging
-            logging.getLogger("fscli").setLevel(logging.DEBUG)
-            logging.getLogger("aws_lambda_builders").setLevel(logging.DEBUG)
+            formatter = logging.Formatter()
+            handler = logging.StreamHandler()
+            handler.setFormatter(formatter)
+            LOG.logger.addHandler(handler)
+            LOG.logger.setLevel(logging.DEBUG)
 
     @property
     def region(self):
