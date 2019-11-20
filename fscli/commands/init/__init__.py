@@ -3,12 +3,16 @@
 """
 Init command to scaffold a project app from a template
 """
-from fscli.lib.log.log import LOG
-import click
+import os
 
+import click
+from cookiecutter.main import cookiecutter
+
+from fscli.lib.log.log import LOG
 from fscli.cli.main import pass_context, common_options
 from fscli.lib.globals.runtimes import *
 from fscli.lib.help.message import InitCommandHelp as help
+from fscli.lib.exceptions.exceptions import UserException
 
 RUNTIMES_TEMPLATES = {
     RUNTIME_PYTHON27: "fs-demo-python",
@@ -32,5 +36,31 @@ RUNTIMES_TEMPLATES = {
 @common_options
 @pass_context
 def cli(ctx, name, runtime, output_dir):
-    LOG.debug("JD Cloud Serverless Init Command")
-    pass
+
+    _check_runtime(runtime)
+
+    LOG.process("Initializing project...")
+    template = os.path.join(os.path.dirname(os.path.abspath(__file__)), "templates", RUNTIMES_TEMPLATES[runtime])
+    params = {
+        "template": template,
+        "output_dir": output_dir,
+    }
+    LOG.configuration("Project Name: %s" % name)
+    LOG.configuration("Project Runtime: %s" % runtime)
+    LOG.configuration("Output Dir: %s" % output_dir)
+    LOG.configuration("Template Location: %s" % template)
+
+    params["no_input"] = True
+    params['extra_context'] = {'project_name': name, 'runtime': runtime}
+
+    try:
+        cookiecutter(**params)
+    except Exception as e:
+        raise UserException(e)
+
+    LOG.process("Project initialization completed")
+
+
+def _check_runtime(runtime):
+    if runtime not in list(RUNTIMES_TEMPLATES.keys()):
+        raise UserException("runtime {runtime} not support".format(runtime=runtime))
