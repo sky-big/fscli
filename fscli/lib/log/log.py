@@ -31,9 +31,12 @@ class LogObject:
         return click.style(u'%s' % msg, bg=bg, fg=fg)
 
     def information(self, msg):
-        click.secho(self.style("[*]", bg="yellow") + self.style(u' %s' % self.format_message(msg), fg="yellow"))
+        click.secho(self.style("[*]", bg="cyan") + self.style(u' %s' % self.format_message(msg), fg="cyan"))
 
     def process(self, msg):
-        click.secho(self.style("[>]", bg="cyan") + self.style(u' %s' % self.format_message(msg), fg="cyan"))
+        click.secho(self.style("[>]", bg="green") + self.style(u' %s' % self.format_message(msg), fg="green"))
+
+    def configuration(self, msg):
+        click.secho(self.style("[*]", bg="yellow") + self.style(u' %s' % self.format_message(msg), fg="yellow"))
 
 LOG = LogObject()
